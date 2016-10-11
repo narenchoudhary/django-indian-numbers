@@ -25,7 +25,10 @@ def intcomma_indian(value):
     """
 
     try:
-        locale.setlocale(locale.LC_ALL, 'en_IN')
+        # Second argument to setlocale must be a byte string.
+        # Passing unicode string will throw ValueError in <= 2.7.11.
+        # Only 2.7.12 accepts unicode string.
+        locale.setlocale(locale.LC_ALL, b'en_IN')
     except locale.Error:
         return value
 
@@ -62,7 +65,10 @@ def floatcomma_indian(value):
     """
 
     try:
-        locale.setlocale(locale.LC_ALL, 'en_IN')
+        # Second argument to setlocale must be a byte string.
+        # Passing unicode string will throw ValueError in <= 2.7.11.
+        # Only 2.7.12 accepts unicode string.
+        locale.setlocale(locale.LC_ALL, b'en_IN')
     except locale.Error:
         return value
 
