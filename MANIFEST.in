@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+include runtests.py
+recursive-include docs *
+recursive-include indian_numbers/templatetags *
+recursive-include tests *
