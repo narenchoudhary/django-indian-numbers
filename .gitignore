@@ -92,3 +92,6 @@ ENV/
 # idea folder
 .idea/
 
+# sqlite
+db.sqlite3
+
