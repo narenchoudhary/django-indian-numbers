@@ -89,15 +89,72 @@ def floatcomma_indian(value):
 
 
 @register.filter(is_safe=True)
-def intword_indian(value, args):
+def floatword_indian(value):
     """
     Converts a large integer number into a friendly text representation.
-    Denominations used are:
-        Hundred
-        Thousand
-        Lakh
-        Crore
+    Highest Denomination is used and 2 lower powers are considered for floating
+    points in text representation.
+    Numbers less than 99 are returned without conversion.
 
-    :return:
+    Denominations used are: Hundred, Thousand, Lakh, Crore
+
+    Examples:
+        1000 becomes 1 Thousand
+        15000 becomes 15 Thousands
+        15600 becomes 15.60 Thousands
+        100000 becomes 1 Lakh
+        1125000 becomes 11.25 Lakhs
+        10000000 becomes 1 Crore
+        56482485 becomes 5.64 Crore
+        56482485.25 becomes 5.64 Crores
+
+    :return: String
     """
-    pass
+    if isinstance(value, int) and value < 100:
+        return str(value)
+    if isinstance(value, float) and value < 99:
+        return str(value)
+
+    try:
+        if isinstance(value, str):
+            if '.' not in value and int(value) < 99:
+                return value
+            if float(value) < 99:
+                return value
+    except (ValueError, TypeError):
+        return value
+
+    value_integer = str(value).split('.')[0]
+    value_len = len(value_integer)
+    if value_len > 7:
+        crores = value_integer[:-7]
+        lakhs = value_integer[-7:-5]
+        if crores == '1' and lakhs == '00':
+            return '1 Crore'
+        if lakhs == '00':
+            return '%s Crores' % crores
+        return '%s.%s Crores' % (crores, lakhs)
+    elif value_len > 5:
+        lakhs = value_integer[:-5]
+        thousands = value_integer[-5:-3]
+        if lakhs == '1' and thousands == '00':
+            return '1 Lakh'
+        if thousands == '00':
+            return '%s Lakhs' % lakhs
+        return '%s.%s Lakhs' % (lakhs, thousands)
+    elif value_len > 3:
+        thousands = value_integer[:-3]
+        hundreds = value_integer[-3:-1]
+        if thousands == '1' and hundreds == '00':
+            return '1 Thousand'
+        if hundreds == '00':
+            return '%s Thousands' % thousands
+        return '%s.%s Thousands' % (thousands, hundreds)
+    else:
+        hundreds = value_integer[:-2]
+        tens_ones = value_integer[-2:]
+        if hundreds == '1' and tens_ones == '00':
+            return '1 Hundred'
+        if tens_ones == '00':
+            return '%s Hundreds' % hundreds
+        return '%s.%s Hundreds' % (hundreds, tens_ones)
