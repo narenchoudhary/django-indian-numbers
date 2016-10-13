@@ -5,6 +5,8 @@ django-indian-numbers
     :target: https://travis-ci.org/narenchoudhary/django-indian-numbers
 .. image:: https://codecov.io/gh/narenchoudhary/django-indian-numbers/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/narenchoudhary/django-indian-numbers
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+    :target: https://opensource.org/licenses/BSD-3-Clause
 
 ``django-indian-numbers`` is a reusable Django application for which provides
 filters for Django templates for formatting numbers in Indian Number System .
@@ -95,9 +97,3 @@ Examples:
 - **10000000** becomes **1 Crore**
 - **56482485** becomes **5.64 Crore**
 - **56482485.25** becomes **5.64 Crores**
-
-
-License
-=======
-
-BSD
