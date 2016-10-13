@@ -16,6 +16,11 @@ install:
   - pip install -q Django==$DJANGO_VERSION
   - python setup.py -q install
   - pip install -e .
+  - pip install codecov
 
 script:
   - python runtests.py
+  - coverage run runtests.py
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

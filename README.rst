@@ -1,5 +1,11 @@
 django-indian-numbers
 =====================
+
+.. image:: https://travis-ci.org/narenchoudhary/django-indian-numbers.png?branch=master
+    :target: https://travis-ci.org/narenchoudhary/django-indian-numbers
+.. image:: https://codecov.io/gh/narenchoudhary/django-indian-numbers/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/narenchoudhary/django-indian-numbers
+
 ``django-indian-numbers`` is a reusable Django application for which provides
 filters for Django templates for formatting numbers in Indian Number System .
 
