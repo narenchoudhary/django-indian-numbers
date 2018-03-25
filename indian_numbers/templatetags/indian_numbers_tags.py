@@ -7,15 +7,28 @@ from indian_numbers import settings as indian_numbers_settings
 
 register = template.Library()
 
+
 def get_locale():
     """
-    Return locale string complaint with operating system
+    Return locale string complaint with operating system and python
+    version
+
+    locale sting must be a byte-string for Python <= 2.7.11
+    For Python >= 2.7.12, it can be unicode string
     """
     py_platform = indian_numbers_settings.INDIAN_NUMBERS_PLATFORM_NAME
     if py_platform in ['linux', 'linux2', 'darwin']:
-        return 'en_IN'
+        locale_string = 'en_IN'
     elif py_platform in ['win32', 'cygwin']:
-        return 'en-IN'
+        locale_string = 'en-IN'
+    else:
+        raise locale.Error("OS not supported")
+
+    py_version = indian_numbers_settings.INDIAN_NUMBERS_PY_VERSION
+    major, minor, micro = py_version.major, py_version.minor, py_version.micro
+    if major == 2 and minor == 7 and micro <= 11:
+        return bytes(locale_string)
+    return locale_string
 
 
 @register.filter(is_safe=True)
