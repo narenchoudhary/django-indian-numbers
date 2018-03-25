@@ -3,8 +3,19 @@ from __future__ import unicode_literals
 import locale
 
 from django import template
+from indian_numbers import settings as indian_numbers_settings
 
 register = template.Library()
+
+def get_locale():
+    """
+    Return locale string complaint with operating system
+    """
+    py_platform = indian_numbers_settings.INDIAN_NUMBERS_PLATFORM_NAME
+    if py_platform in ['linux', 'linux2', 'darwin']:
+        return 'en_IN'
+    elif py_platform in ['win32', 'cygwin']:
+        return 'en-IN'
 
 
 @register.filter(is_safe=True)
@@ -28,7 +39,7 @@ def intcomma_indian(value):
         # Second argument to setlocale must be a byte string.
         # Passing unicode string will throw ValueError in <= 2.7.11.
         # Only 2.7.12 accepts unicode string.
-        locale.setlocale(locale.LC_ALL, b'en_IN')
+        locale.setlocale(locale.LC_ALL, get_locale())
     except locale.Error:
         return value
 
@@ -68,7 +79,7 @@ def floatcomma_indian(value):
         # Second argument to setlocale must be a byte string.
         # Passing unicode string will throw ValueError in <= 2.7.11.
         # Only 2.7.12 accepts unicode string.
-        locale.setlocale(locale.LC_ALL, b'en_IN')
+        locale.setlocale(locale.LC_ALL, get_locale())
     except locale.Error:
         return value
 
