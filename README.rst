@@ -24,8 +24,7 @@ Installation
 Usage
 =====
 
-To activate filters, add ``"indian_numbers"`` to INSTALLED_APPS settings and
-use ``{% load indian_numbers_tags %}`` in template to access filters.
+1. Add ``"indian_numbers"`` to INSTALLED_APPS settings.
 
 .. code-block:: python
 
@@ -37,13 +36,16 @@ use ``{% load indian_numbers_tags %}`` in template to access filters.
         'indian_numbers',
     ]
 
+2. Add ``USE_THOUSAND_SEPARATOR = True`` in settings.
 
-Load the `indian_numbers_tags` template filters library.
+
+3. Load the `indian_numbers_tags` template filters library.
 
 .. code-block:: html
 
         {% load indian_numbers_tags %}
 
+4. See example project for examples.
 
 Filters
 =======
