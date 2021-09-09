@@ -54,7 +54,7 @@ intcomma_indian
 Similar to `intcomma <https://docs.djangoproject.com/en/dev/ref/contrib/humanize/#intcomma>`_ in
 `django.contrib.humanize <https://docs.djangoproject.com/en/dev/ref/contrib/humanize/>`_ app of Django library.
 It converts a number to a string formatted with commas as per Indian number system.
-It works for integer, floating-point and string values which can be converted to integers.
+It works for integer, floating-point and string values which can be converted to integers. This tag also accepts an optional ``preserve_decimal`` parameter. If ``preserve_decimal`` is ``True``, then tag will preserve the decimal places for the provided number. By default, ``preserve_decimal`` is set to ``False``.
 
 Examples:
 
@@ -62,12 +62,12 @@ Examples:
 - **1259647552** becomes **1,25,96,47,552**
 - **126500.25** becomes **1,26,500**
 - **-126500** becomes **-1,26,500**
-- **'100000'** becomes **1,00,000**
+- **100000** becomes **1,00,000**
 
 floatcomma_indian
 -----------------
 
-It works exactly likes ``intcomma``, except that it preserves decimal places.
+It works exactly likes ``intcomma``, except that it preserves decimal places. This template tag also accepts an optional ``decimal_pos`` parameter which denotes number of decimal positions to add/preserve in the provided floating point number. By default, all decimal places are preserved (no decimal places are truncated/padded).
 
 Examples:
 

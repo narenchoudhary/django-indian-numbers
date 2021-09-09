@@ -3,131 +3,186 @@ from django.test import TestCase
 from indian_numbers.templatetags.indian_numbers_tags import *
 
 
-class DoAssertionIntCommaMixin(object):
-
-    def do_assertion(self, arg, expect):
-        result = intcomma_indian(arg)
-        self.assertEqual(expect, result)
-
-
-class TestIntCommaIndian(TestCase, DoAssertionIntCommaMixin):
+class TestIntCommaIndian(TestCase):
 
     def test1(self):
         arg = 0
         expect = '0'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test2(self):
         arg = 0.00
         expect = '0'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test3(self):
         arg = 1
         expect = '1'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test4(self):
         arg = 26500
         expect = '26,500'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test5(self):
         arg = 126500
         expect = '1,26,500'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test6(self):
         arg = 1259647552
         expect = '1,25,96,47,552'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test7(self):
         arg = 1259647552.25
         expect = '1,25,96,47,552'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
+
+    def test7_with_decimal_places_preserved(self):
+        arg = 1259647552.25
+        expect = '1,25,96,47,552.25'
+        result = intcomma_indian(arg, preserve_decimal=True)
+        self.assertEqual(expect, result)
 
     def test8(self):
         arg = -126500
         expect = '-1,26,500'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test9(self):
         arg = 126500.25
         expect = '1,26,500'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test10(self):
         arg = '126500.25'
         expect = '1,26,500'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test11(self):
         arg = 'abc'
         expect = 'abc'
-        self.do_assertion(arg, expect)
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
+    def test12(self):
+        arg = '123456789abc'
+        expect = '123456789abc'
+        result = intcomma_indian(arg)
+        self.assertEqual(expect, result)
 
-class DoAssertionFloatCommaMixin(object):
-
-    def do_assertion(self, arg, expect):
-        result = floatcomma_indian(arg)
+    def test13(self):
+        arg = 'abc123456789'
+        expect = 'abc123456789'
+        result = intcomma_indian(arg)
         self.assertEqual(expect, result)
 
 
-class TestFloatCommaIndian(TestCase, DoAssertionFloatCommaMixin):
+class TestFloatCommaIndian(TestCase):
 
     def test1(self):
         arg = 25
-        expect = '25.00'
-        self.do_assertion(arg, expect)
+        expect = '25'
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test2(self):
         arg = 121250.6
         expect = '1,21,250.6'
-        self.do_assertion(arg, expect)
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test3(self):
         arg = 121250.25
         expect = '1,21,250.25'
-        self.do_assertion(arg, expect)
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test4(self):
         arg = 121250.675
         expect = '1,21,250.675'
-        self.do_assertion(arg, expect)
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
 
     def test5(self):
         arg = -121250.675
         expect = '-1,21,250.675'
-        self.do_assertion(arg, expect)
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
+
+    def test5_with_2_decimal_positions(self):
+        arg = -121250.675
+        expect = '-1,21,250.67'
+        result = floatcomma_indian(arg, decimal_pos=2)
+        self.assertEqual(expect, result)
 
     def test6(self):
         arg = 12345678
+        expect = '1,23,45,678'
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
+
+    def test6_with_2_decimal_positions(self):
+        arg = 12345678
         expect = '1,23,45,678.00'
-        self.do_assertion(arg, expect)
+        result = floatcomma_indian(arg, decimal_pos=2)
+        self.assertEqual(expect, result)
 
     def test7(self):
         arg = 'abc'
         expect = 'abc'
-        self.do_assertion(arg, expect)
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
+
+    def test8(self):
+        arg = '123456.45ab'
+        expect = '123456.45ab'
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
+
+    def test9(self):
+        arg = '6.02E2'
+        expect = '602.0'
+        result = floatcomma_indian(arg)
+        self.assertEqual(expect, result)
+
+    def test9_with_zero_decimal_places(self):
+        arg = '6.02E2'
+        expect = '602'
+        result = floatcomma_indian(arg, decimal_pos=0)
+        self.assertEqual(expect, result)
+
+    def test9_with_3_decimal_places(self):
+        arg = '6.02E2'
+        expect = '602.000'
+        result = floatcomma_indian(arg, decimal_pos=3)
+        self.assertEqual(expect, result)
 
 
-class DoAssertionFloatWordMixin(object):
+class TestFloatWordIndian(TestCase):
 
     def do_assertion(self, arg, expect):
         result = floatword_indian(arg)
         self.assertEqual(expect, result)
-
-
-class TestFloatWordIndian(TestCase, DoAssertionFloatWordMixin):
 
     def test1(self):
         arg = 0.00
         expect = '0.0'
         self.do_assertion(arg, expect)
 
-    def test12(self):
+    def test2(self):
         arg = '0'
         expect = '0'
         self.do_assertion(arg, expect)
