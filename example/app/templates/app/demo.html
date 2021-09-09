@@ -4,169 +4,226 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Example/Demo</title>
-  <meta name="description" content="Example application for django-indian-numbers">
-  <meta name="author" content="Narendra Choudhary">
+    <meta charset="utf-8">
+    <title>Example/Demo</title>
+    <meta name="description" content="Example application for django-indian-numbers">
+    <meta name="author" content="Narendra Choudhary">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css"> -->
+    <style>
+        code {
+            background-color: #118bee15;
+            border-radius: 0;
+            color: #000;
+            display: inline-block;
+            margin: 0 0.1rem;
+            padding: 0 0.5rem;
+        }
+    </style>
 </head>
 <body>
-    <h3>django-indian-numbers</h3>
-    <p><u>GITHUB</u> : https://github.com/narenchoudhary/django-indian-numbers</p>
-    <p><u>ISSUES</u> : https://github.com/narenchoudhary/django-indian-numbers/issues</p>
+<main>
+    <section>
+        <header>
+            <h2>django-indian-numbers</h2>
+            <p><code>django-indian-numbers</code> is a small reusable Django application for which provides filters
+                for Django templates for formatting numbers in Indian Number System.</p>
+            <p><u>GITHUB</u> : https://github.com/narenchoudhary/django-indian-numbers</p>
+            <p><u>ISSUES</u> : https://github.com/narenchoudhary/django-indian-numbers/issues</p>
+        </header>
+    </section>
+    <h2>FILTERS</h2>
+    <ul>
+        <li><code>intcomma_indian</code></li>
+        <li><code>floatcomma_indian</code></li>
+        <li><code>floatword_indian</code></li>
+    </ul>
+    <section>
+        <h3>EXAMPLES</h3>
+        <section>
+            <h4><code>intcomma_indian</code></h4>
+            <ul>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 0 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 0 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 0.00 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 0.00 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ -1 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ -1 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 26500 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 26500 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 126500 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 126500 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 1259647552 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 1259647552 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 1259647552.25 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 1259647552.25 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 1259647552.25 | intcomma_indian:True }}{% endverbatim %}</code> →
+                        <samp>{{ 1259647552.25 | intcomma_indian:True  }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ -126500 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ -126500 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 126500.25 | intcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 126500.25 | intcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 126500.25 | intcomma_indian:True }}{% endverbatim %}</code> →
+                        <samp>{{ 126500.25 | intcomma_indian:True }}</samp>
+                    </p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h4><code>floatcomma_indian</code></h4>
+            <ul>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 25 | floatcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 25 | floatcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 121250.6 | floatcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 121250.6 | floatcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 121250.25 | floatcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 121250.25 | floatcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 121250.675 | floatcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 121250.675 | floatcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 121250.675 | floatcomma_indian:2 }}{% endverbatim %}</code> →
+                        <samp>{{ 121250.675 | floatcomma_indian:2 }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 121250.675892456 | floatcomma_indian:4 }}{% endverbatim %}</code> →
+                        <samp>{{ 121250.675 | floatcomma_indian:4 }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ -121250.675 | floatcomma_indian }}{% endverbatim %}</code> →
+                        <samp>{{ -121250.675 | floatcomma_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ -121250.675 | floatcomma_indian:0 }}{% endverbatim %}</code> →
+                        <samp>{{ -121250.675 | floatcomma_indian:0 }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ -121250.675 | floatcomma_indian:-1 }}{% endverbatim %}</code> →
+                        <samp>{{ -121250.675 | floatcomma_indian:-1 }}</samp>
+                    </p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h4><code>floatword_indian</code></h4>
+            <ul>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 1000 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 1000 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 15000 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 15000 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 15600 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 15600 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 100000 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 100000 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 1125000 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 1125000 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 10000000 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 10000000 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 56482485 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 56482485 | floatword_indian }}</samp>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <code>{% verbatim %} {{ 56482485.25 | floatword_indian }}{% endverbatim %}</code> →
+                        <samp>{{ 56482485.25 | floatword_indian }}</samp>
+                    </p>
+                </li>
+            </ul>
+        </section>
+    </section>
+</main>
 
-    <h3>DESCRIPTION</h3>
-    <p>
-        django-indian-numbers is a small reusable Django application for which provides
-        filters for Django templates for formatting numbers in Indian Number System.
-    </p>
-
-    <h3>FILTERS</h3>
-    <ul>
-        <li>intcomma_indian</li>
-        <li>floatcomma_indian</li>
-    </ul>
-
-    <h3>EXAMPLES</h3>
-    <p>intcomma_indian</p>
-    <ul>
-        <li>
-            <p>
-                {% verbatim %} {{ 0 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 0 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 0.00 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 0.00 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-             <p>
-                {% verbatim %} {{ -1 | intcomma_indian }} {% endverbatim %} will be rendered
-                 as {{ -1 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{  26500 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 26500 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{  126500 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 126500 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{  1259647552 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 1259647552 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{  1259647552.25 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 1259647552.25 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{  -126500 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ -126500 | intcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{  126500.25 | intcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 126500.25 | intcomma_indian }}.
-            </p>
-        </li>
-    </ul>
-    <p>floatcomma_indian</p>
-    <ul>
-        <li>
-            <p>
-                {% verbatim %} {{ 25 | floatcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 25 | floatcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 121250.6 | floatcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 121250.6 | floatcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 121250.25 | floatcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 121250.25 | floatcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 121250.675 | floatcomma_indian }} {% endverbatim %} will be rendered
-                as {{ 121250.675 | floatcomma_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ -121250.675 | floatcomma_indian }} {% endverbatim %} will be rendered
-                as {{ -121250.675 | floatcomma_indian }}.
-            </p>
-        </li>
-    </ul>
-    <p>floatword_indian</p>
-    <ul>
-        <li>
-            <p>
-                {% verbatim %} {{ 1000 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 1000 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 15000 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 15000 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 15600 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 15600 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 100000 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 100000 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 1125000 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 1125000 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 10000000 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 10000000 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 56482485 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 56482485 | floatword_indian }}.
-            </p>
-        </li>
-        <li>
-            <p>
-                {% verbatim %} {{ 56482485.25 | floatword_indian }} {% endverbatim %} will be rendered
-                as {{ 56482485.25 | floatword_indian }}.
-            </p>
-        </li>
-    </ul>
 </body>
 </html>
