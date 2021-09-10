@@ -9,6 +9,7 @@ if not settings.configured:
     settings.configure(
         DEBUG=True,
         USE_THOUSAND_SEPARATOR=True,
+        USE_L10N=True,
         DATABASES={
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',

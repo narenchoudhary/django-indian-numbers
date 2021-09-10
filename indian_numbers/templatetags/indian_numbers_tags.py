@@ -31,8 +31,7 @@ def intcomma_indian(value, preserve_decimal=False):
     except (TypeError, ValueError):
         return value
     decimal_pos = None if preserve_decimal else 0
-    return numberformat.format(value, decimal_sep='.', decimal_pos=decimal_pos, grouping=(3, 2), thousand_sep=',',
-                               use_l10n=True)
+    return numberformat.format(value, decimal_sep='.', decimal_pos=decimal_pos, grouping=(3, 2), thousand_sep=',')
 
 
 @register.filter(is_safe=True)
@@ -60,8 +59,7 @@ def floatcomma_indian(value, decimal_pos=None):
             value = float(value)
     except (TypeError, ValueError):
         return value
-    return numberformat.format(value, decimal_sep='.', decimal_pos=decimal_pos, grouping=(3, 2), thousand_sep=',',
-                               use_l10n=True)
+    return numberformat.format(value, decimal_sep='.', decimal_pos=decimal_pos, grouping=(3, 2), thousand_sep=',')
 
 
 @register.filter(is_safe=True)
