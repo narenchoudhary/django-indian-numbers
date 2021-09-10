@@ -1,8 +1,8 @@
 django-indian-numbers
 =====================
 
-.. image:: https://travis-ci.org/narenchoudhary/django-indian-numbers.png?branch=master
-    :target: https://travis-ci.org/narenchoudhary/django-indian-numbers
+.. image:: https://app.travis-ci.com/narenchoudhary/django-indian-numbers.svg?branch=master
+    :target: https://app.travis-ci.com/github/narenchoudhary/django-indian-numbers
 .. image:: https://codecov.io/gh/narenchoudhary/django-indian-numbers/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/narenchoudhary/django-indian-numbers
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
