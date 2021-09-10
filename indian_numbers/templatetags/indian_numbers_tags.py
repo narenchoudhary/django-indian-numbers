@@ -1,27 +1,17 @@
 from __future__ import unicode_literals
 
-import locale
+from decimal import Decimal
 
 from django import template
-from indian_numbers import settings as indian_numbers_settings
+from django.utils import numberformat
 
 register = template.Library()
 
-def get_locale():
-    """
-    Return locale string complaint with operating system
-    """
-    py_platform = indian_numbers_settings.INDIAN_NUMBERS_PLATFORM_NAME
-    if py_platform in ['linux', 'linux2', 'darwin']:
-        return 'en_IN'
-    elif py_platform in ['win32', 'cygwin']:
-        return 'en-IN'
-
 
 @register.filter(is_safe=True)
-def intcomma_indian(value):
+def intcomma_indian(value, preserve_decimal=False):
     """
-    Converts a number into comma notation as per Indian number system.
+    Convert an integer to a string containing commas as per Indian Number System
 
     This function accepts integer, float, and string value, but strips
     decimal part before computing indian number notation of integral part.
@@ -32,71 +22,44 @@ def intcomma_indian(value):
         -126500 becomes -1,26,500
 
     :param value: integer, float, string
+    :param preserve_decimal: Keep decimal values
     :return: string
     """
-
     try:
-        # Second argument to setlocale must be a byte string.
-        # Passing unicode string will throw ValueError in <= 2.7.11.
-        # Only 2.7.12 accepts unicode string.
-        locale.setlocale(locale.LC_ALL, get_locale())
-    except locale.Error:
+        if not isinstance(value, (int, float, Decimal)):
+            value = float(value)
+    except (TypeError, ValueError):
         return value
-
-    try:
-        if isinstance(value, (float, int)):
-            value = int(value)
-        elif isinstance(value, str):
-            value = int(float(value))
-    except (ValueError, TypeError):
-        return value
-
-    new_number = locale.format("%d", value, grouping=True)
-    return new_number
+    decimal_pos = None if preserve_decimal else 0
+    return numberformat.format(value, decimal_sep='.', decimal_pos=decimal_pos, grouping=(3, 2), thousand_sep=',')
 
 
 @register.filter(is_safe=True)
-def floatcomma_indian(value):
+def floatcomma_indian(value, decimal_pos=None):
     """
-    Convert a number into comma notation as per Indian number system.
+    Convert a floating point number to a string containing commas as per Indian Number System
 
     This function accepts integer, float, and string value. If the value passed
     does not have any decimal places, then 2 decimal places are added by
     default. Decimal places are preserved in all other cases.
 
     Example:
-        25 becomes 25.00
+        25 becomes 25
         121250.6 becomes 1,125.6
         25.675 becomes 25.675
         126500.25 becomes 1,26,500.25
         -126500.75 becomes -1,26,500.75
 
     :param value: integer or float
+    :param decimal_pos: Number of decimal positions to add/preserve
     :return:
     """
-
     try:
-        # Second argument to setlocale must be a byte string.
-        # Passing unicode string will throw ValueError in <= 2.7.11.
-        # Only 2.7.12 accepts unicode string.
-        locale.setlocale(locale.LC_ALL, get_locale())
-    except locale.Error:
-        return value
-
-    value_str_split = str(value).split('.')
-    decimal_places = 2
-    if len(value_str_split) == 2:
-        decimal_places = len(value_str_split[1])
-
-    try:
-        if isinstance(value, (int, float, str)):
+        if not isinstance(value, (int, float, Decimal)):
             value = float(value)
-    except (ValueError, TypeError):
+    except (TypeError, ValueError):
         return value
-
-    format_str = "%.{}f".format(decimal_places)
-    new_value = locale.format(format_str, value, grouping=True)
-    return new_value
+    return numberformat.format(value, decimal_sep='.', decimal_pos=decimal_pos, grouping=(3, 2), thousand_sep=',')
 
 
 @register.filter(is_safe=True)
